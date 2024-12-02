@@ -1,0 +1,37 @@
+-- 图书信息表
+CREATE TABLE Books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,  -- 图书ID
+    title VARCHAR(255) NOT NULL,             -- 书名
+    author VARCHAR(255),                     -- 作者
+    publisher VARCHAR(255),                  -- 出版社
+    price DECIMAL(10, 2),                    -- 价格
+    stock INT DEFAULT 0                      -- 库存
+);
+
+-- 采购记录表
+CREATE TABLE Purchases (
+    purchase_id INT AUTO_INCREMENT PRIMARY KEY,  -- 采购记录ID
+    book_id INT,                                 -- 图书ID
+    quantity INT,                                -- 采购数量
+    purchase_date DATE,                          -- 采购日期
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+-- 淘汰记录表
+CREATE TABLE Retirements (
+    retirement_id INT AUTO_INCREMENT PRIMARY KEY, -- 淘汰记录ID
+    book_id INT,                                  -- 图书ID
+    quantity INT,                                 -- 淘汰数量
+    retirement_date DATE,                         -- 淘汰日期
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+-- 租借记录表
+CREATE TABLE Rentals (
+    rental_id INT AUTO_INCREMENT PRIMARY KEY, -- 租借记录ID
+    book_id INT,                               -- 图书ID
+    customer_name VARCHAR(255),                 -- 客户姓名
+    rental_date DATE,                           -- 租借日期
+    return_date DATE,                           -- 归还日期
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
